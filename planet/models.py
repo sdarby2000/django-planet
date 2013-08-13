@@ -236,6 +236,9 @@ class Post(models.Model):
     guid = models.CharField(_("Guid"), max_length=32, db_index=True)
     content = models.TextField(_("Content"))
     comments_url = models.URLField(_("Comments URL"), blank=True, null=True)
+    thoughts = models.TextField()
+    already_read = models.BooleanField(default=False)
+    display = models.BooleanField(default=False)
 
     date_modified = models.DateTimeField(_("Date modified"), null=True,
         blank=True, db_index=True)
