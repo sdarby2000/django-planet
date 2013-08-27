@@ -19,9 +19,6 @@ from django.conf import settings
 from django.db.models.signals import pre_delete
 from django.template.defaultfilters import slugify
 
-import tagging
-from tagging.models import Tag
-
 from planet.managers import (FeedManager, AuthorManager, BlogManager,
     PostManager, GeneratorManager, PostLinkManager, FeedLinkManager,
     EnclosureManager)
@@ -162,7 +159,7 @@ class Feed(models.Model):
                 exit(0)
 
             document = feedparser.parse(self.url, agent=USER_AGENT,
-                                        modified=self.modified, etag=self.etag)
+                                        modified=self.modified, etag=self.eS)
 
             self.site = Site.objects.get(pk=settings.SITE_ID)
 
@@ -262,14 +259,6 @@ class Post(models.Model):
 
     def get_slug(self):
         return slugify(self.title) or "no-title"
-
-# each Post object now will have got a .tags attribute!
-tagging.register(Post)
-
-# Deleting all asociated tags.
-def delete_asociated_tags(sender, **kwargs):
-    Tag.objects.update_tags(kwargs['instance'], None)
-pre_delete.connect(delete_asociated_tags, sender=Post)
 
 
 class Author(models.Model):
