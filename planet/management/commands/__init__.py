@@ -133,7 +133,7 @@ def process_feed(feed_url, create=False, category_title=None):
             url=feed_url, rights=rights, info=info, guid=guid,
             image_url=image_url, icon_url=icon_url, language=language,
             etag=etag, last_modified=last_modified, generator=generator,
-            is_active=True, last_checked=datetime.utcsnow().replace(tzinfo=utc),
+            is_active=True, last_checked=datetime.utcnow().replace(tzinfo=utc),
             site=current_site, category=category
         )
         planet_feed.save()
