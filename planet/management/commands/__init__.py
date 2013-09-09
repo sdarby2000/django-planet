@@ -72,7 +72,8 @@ def process_feed(feed_url, create=False, category_title=None):
 
     # retrieve and parse feed using conditional GET method
     if not create:
-        modified = datetime.timetuple(planet_feed.last_modified, tzinfo=utc)
+        print planet_feed.last_modified
+        modified = datetime.timetuple(planet_feed.last_modified)
         #modified.replace(tzinfo=utc)
         etag = planet_feed.etag
         # update last checked datetime
