@@ -191,7 +191,7 @@ def process_feed(feed_url, create=False, category_title=None):
                     if len(Post.objects.filter(url=url, guid=guid)):
                         raise PostAlreadyExists
                     post = Post(title=title, url=url, guid=guid, content=content,
-                        comments_url=comments_url, date_modified=date_modified,
+                        comments_url=comments_url, date_modified=date_modified.replace(tzinfo=utc),
                         feed=planet_feed)
                     # To have the feed entry in the pre_save signal
                     post.entry = entry
