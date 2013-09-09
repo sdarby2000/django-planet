@@ -72,9 +72,7 @@ def process_feed(feed_url, create=False, category_title=None):
 
     # retrieve and parse feed using conditional GET method
     if not create:
-        print planet_feed.last_modified
         modified = datetime.timetuple(planet_feed.last_modified)
-        print modified
         #modified.replace(tzinfo=utc)
         etag = planet_feed.etag
         # update last checked datetime
@@ -108,7 +106,6 @@ def process_feed(feed_url, create=False, category_title=None):
         else:
             last_modified = datetime.utcnow().replace(tzinfo=utc)
 
-        print last_modified
         feed_links = document.feed.get("links", [])
         if not blog_url:
             link = filter(lambda item: item["rel"]=="alternate", feed_links)
@@ -142,9 +139,6 @@ def process_feed(feed_url, create=False, category_title=None):
             site=current_site, category=category
         )
         planet_feed.save()
-        print "planet feed"
-        print planet_feed.last_modified
-        print planet_feed.last_checked
 
         for tag_dict in document.feed.get("tags", []):
             name = tag_dict.get("term")
