@@ -72,7 +72,7 @@ def process_feed(feed_url, create=False, category_title=None):
 
     # retrieve and parse feed using conditional GET method
     if not create:
-        modified = datetime.timetuple(planet_feed.last_modified)
+        modified = datetime.timetuple(planet_feed.last_modified).replace(tzinfo=utc)
         etag = planet_feed.etag
         # update last checked datetime
         planet_feed.last_checked = datetime.utcnow().replace(tzinfo=utc)
@@ -100,7 +100,7 @@ def process_feed(feed_url, create=False, category_title=None):
 
         updated_parsed = document.get("updated_parsed")
         if updated_parsed:
-            last_modified = datetime.fromtimestamp(time.mktime(updated_parsed))
+            last_modified = datetime.fromtimestamp(time.mktime(updated_parsed)).replace(tzinfo=utc)
         else:
             last_modified = datetime.utcnow().replace(tzinfo=utc)
 
@@ -178,7 +178,7 @@ def process_feed(feed_url, create=False, category_title=None):
                     entry.get("published_parsed")
                 try:
                     date_modified = datetime.fromtimestamp(
-                        time.mktime(date_modified))
+                        time.mktime(date_modified)).replace(tzinfo=utc)
                 except Exception:
                     date_modified = None
 
