@@ -20,6 +20,7 @@ from planet.signals import post_created
 
 class PostAlreadyExists(Exception):
     pass
+from django.utils.timezone import utc
 
 def process_feed(feed_url, create=False, category_title=None):
     """
@@ -101,7 +102,7 @@ def process_feed(feed_url, create=False, category_title=None):
         if updated_parsed:
             last_modified = datetime.fromtimestamp(time.mktime(updated_parsed))
         else:
-            last_modified = datetime.now()
+            last_modified = datetime.utcnow().replace(tzinfo=utc)
 
         feed_links = document.feed.get("links", [])
         if not blog_url:
@@ -297,7 +298,7 @@ def process_feed(feed_url, create=False, category_title=None):
 
         if new_posts_count:
             # update last modified datetime
-            planet_feed.last_modified = datetime.now()
+            planet_feed.last_modified = datetime.utcnow().replace(tzinfo=utc)
             planet_feed.save()
         print "%d posts were created. Done." % new_posts_count
 
