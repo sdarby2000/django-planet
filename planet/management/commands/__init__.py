@@ -137,7 +137,7 @@ def process_feed(feed_url, create=False, category_title=None):
         planet_feed = Feed(title=title, subtitle=subtitle, blog=blog,
             url=feed_url, rights=rights, info=info, guid=guid,
             image_url=image_url, icon_url=icon_url, language=language,
-            etag=etag, last_modified=last_modified, generator=generator,
+            etag=etag, last_modified=last_modified.utcnow().replace(tzinfo=utc), generator=generator,
             is_active=True, last_checked=datetime.utcnow().replace(tzinfo=utc),
             site=current_site, category=category
         )
