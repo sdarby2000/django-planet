@@ -74,6 +74,7 @@ def process_feed(feed_url, create=False, category_title=None):
     if not create:
         print planet_feed.last_modified
         modified = datetime.timetuple(planet_feed.last_modified)
+        print modified
         #modified.replace(tzinfo=utc)
         etag = planet_feed.etag
         # update last checked datetime
