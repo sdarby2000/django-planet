@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import datetime
 from django.core.management.base import NoArgsCommand
-from django.utls.timezone import utc
+from django.utils.timezone import utc
 
 from planet.management.commands import process_feed
 from planet.models import Feed
