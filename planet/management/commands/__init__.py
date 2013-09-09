@@ -183,7 +183,7 @@ def process_feed(feed_url, create=False, category_title=None):
                 try:
                     date_modified = datetime.fromtimestamp(
                         time.mktime(date_modified))
-                    date_modified.replace(tzinfo0=utc)
+                    date_modified.replace(tzinfo=utc)
                 except Exception:
                     date_modified = None
 
