@@ -100,7 +100,8 @@ def process_feed(feed_url, create=False, category_title=None):
 
         updated_parsed = document.get("updated_parsed")
         if updated_parsed:
-            last_modified = datetime.fromtimestamp(time.mktime(updated_parsed)).replace(tzinfo=utc)
+            last_modified = datetime.fromtimestamp(time.mktime(updated_parsed))
+            last_modified.replace(tzinfo=utc)
         else:
             last_modified = datetime.utcnow().replace(tzinfo=utc)
 
@@ -178,7 +179,8 @@ def process_feed(feed_url, create=False, category_title=None):
                     entry.get("published_parsed")
                 try:
                     date_modified = datetime.fromtimestamp(
-                        time.mktime(date_modified)).replace(tzinfo=utc)
+                        time.mktime(date_modified))
+                    date_modified.replace(tzinfo0=utc)
                 except Exception:
                     date_modified = None
 
