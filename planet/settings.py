@@ -16,4 +16,6 @@ PLANET_CONFIG = {
 
 PLANET_CONFIG.update(PROJECT_PLANET)
 
+TIME_ZONE = 'America/Denver'
+
 USE_TZ = True
