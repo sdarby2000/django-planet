@@ -75,7 +75,7 @@ def process_feed(feed_url, create=False, category_title=None):
         modified = datetime.timetuple(planet_feed.last_modified)
         etag = planet_feed.etag
         # update last checked datetime
-        planet_feed.last_checked = datetime.now()
+        planet_feed.last_checked = datetime.utcnow().replace(tzinfo=utc)
         planet_feed.save()
     else:
         modified = etag = None
@@ -133,7 +133,7 @@ def process_feed(feed_url, create=False, category_title=None):
             url=feed_url, rights=rights, info=info, guid=guid,
             image_url=image_url, icon_url=icon_url, language=language,
             etag=etag, last_modified=last_modified, generator=generator,
-            is_active=True, last_checked=datetime.now(),
+            is_active=True, last_checked=datetime.utcsnow().replace(tzinfo=utc),
             site=current_site, category=category
         )
         planet_feed.save()
