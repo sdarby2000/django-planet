@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.conf import settings
+import warnings
 
 try:
     PROJECT_PLANET = settings.PLANET
@@ -19,3 +20,9 @@ PLANET_CONFIG.update(PROJECT_PLANET)
 TIME_ZONE = 'America/Denver'
 
 USE_TZ = True
+
+
+
+warnings.filterwarnings(
+        'error', r"DateTimeField received a naive datetime",
+        RuntimeWarning, r'django\.db\.models\.fields')
