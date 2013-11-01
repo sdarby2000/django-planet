@@ -228,6 +228,7 @@ class Post(models.Model):
     """
     feed = models.ForeignKey("planet.Feed", null=False, blank=False)
     title = models.CharField(_("Title"), max_length=255, db_index=True)
+    slug = models.SlugField(max_length=300, blank=True, null=True)
     authors = models.ManyToManyField("planet.Author", through=PostAuthorData)
     url = models.URLField(_("Url"), max_length=1000, db_index=True)
     guid = models.CharField(_("Guid"), max_length=32, db_index=True)
@@ -259,6 +260,12 @@ class Post(models.Model):
 
     def get_slug(self):
         return slugify(self.title) or "no-title"
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        if Post.objects.filter(slug=self.slug).exists():
+            self.slug = slugify(self.title + " " + self.feed.title)
+        super(Post, self).save()
 
 
 class Author(models.Model):
